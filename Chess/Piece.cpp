@@ -1,7 +1,12 @@
 #include "Piece.h"
 
-Piece::Piece(std::string name, std::string location)
+Piece::Piece(const char piece, const Loc& loc)
 {
-	this->name = name;
-	this->location = location;
+	this->_piece = piece;
+	this->_loc = loc;
+}
+
+char Piece::getChar() const
+{
+	return this->_piece;
 }

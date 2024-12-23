@@ -1,14 +1,17 @@
 #pragma once
-#include <iostream>
+
+#include "iostream"
+#include "Loc.h"
 #include "Board.h"
 
-class Board;
 class Piece
 {
-private:
-	std::string name;
-	std::string location;
 public:
-	Piece(std::string name, std::string location);
-	virtual bool validMove(const std::string& dst, const Board& Board) const = 0;
+	Piece(const char piece, const Loc& loc);
+	char getChar() const;
+	virtual bool validMove(const Board& board, const std::string& dst) const = 0;
+
+private:
+	char _piece;
+	Loc _loc;
 };

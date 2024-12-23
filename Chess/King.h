@@ -3,10 +3,9 @@
 class King : public Piece
 {
 public:
-	King(const std::string& name, const std::string& location); // initiate Piece
-	virtual bool validMove(const std::string& dst, const Board& Board) const override;
+	King(const char piece, const Loc& loc);
+	virtual bool validMove(const Board& board, const std::string& dst) const override;
 private:
-	bool isChecked(const Board& board) const;
-	bool isMated(const Board& board) const;
+	bool isChecked(Board board);
+	bool isMated(Board board);
 };
-

@@ -1,11 +1,11 @@
 #include "Rook.h"
 
-bool Rook::validMove(std::string dst, board Board&)
+Rook::Rook(const char piece, const Loc& loc) : Piece(piece, loc)
 {
-	return false;
 }
 
-Rook::Rook(std::string name, std::string location) :Piece(name, location)
+bool Rook::validMove(const Board& board, const std::string& dst) const
 {
 
+	return false;
 }
