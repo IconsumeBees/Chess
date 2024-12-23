@@ -3,7 +3,7 @@
 class Knight : public Piece
 {
 public:
-	Knight(std::string name, std::string location); // initiate Piece
-	bool validMove(std::string dst, Board board) override;
+	Knight(const std::string& name, const std::string& location); // initiate Piece
+	virtual bool validMove(const std::string& dst, const Board& Board) const override;
 };
 

@@ -1,13 +1,14 @@
 #pragma once
 #include <iostream>
-#include <string>
 #include "Board.h"
+
+class Board;
 class Piece
 {
-public:
+private:
 	std::string name;
 	std::string location;
+public:
 	Piece(std::string name, std::string location);
-	bool validMove(std::string dst, board Board&) = 0;
+	virtual bool validMove(const std::string& dst, const Board& Board) const = 0;
 };
-
