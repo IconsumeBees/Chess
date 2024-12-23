@@ -15,9 +15,52 @@ static void printBoard(const std::string& boardStr)
 	}
 }
 
-static int checkInput(std::string index)
+static int checkInput(std::string src, std::string dst, Piece* board[8][8], bool blackMoves)
 {
+	Loc location, destination;
+	location = strToLoc(src);
+	destination = strToLoc(src);
+	if (location.row > 7 || location.row < 0 && location.col > 7 || location.col < 0)
+	{
+		return 6;
+	}
 
+	if (destination.row > 7 || destination.row < 0 && destination.col > 7 || destination.col < 0)
+	{
+		return 6;
+	}
+
+	if (location.row == destination.row && location.col == destination.col)
+	{
+		return 7;
+	}
+	
+	if (board[location.row][location.col])
+	{
+		if (blackMoves)
+		{
+			if (!(std::islower(board[location.row][location.col]->getChar())))
+			{
+				return 2;
+			}
+			if (std::islower(board[destination.row][destination.col]->getChar()))
+			{
+				return 3;
+			}
+		}
+		else
+		{
+			if (!(std::isupper(board[location.row][location.col]->getChar())))
+			{
+				return 2;
+			}
+			if (std::isupper(board[destination.row][destination.col]->getChar()))
+			{
+				return 3;
+			}
+		}
+		return 0;
+	}
 }
 
 int main()
