@@ -53,7 +53,7 @@ Piece* Board::_newPiece(const char piece, const Loc& loc)
 	case 'r':
 		return new Rook(piece, loc);
 		break;
-	defualt:
+	default:
 		return nullptr;
 	}
 }

@@ -15,6 +15,10 @@ static void printBoard(const std::string& boardStr)
 	}
 }
 
+static int checkInput(std::string index)
+{
+
+}
 
 int main()
 {
@@ -39,7 +43,7 @@ int main()
 		"########"
 		"r######r";
 
-	Board board(piecesStr); // construct board
+	Board board(piecesStr);
 
 	std::string move = "";
 	while (move != "x")

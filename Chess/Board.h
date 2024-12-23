@@ -4,7 +4,6 @@
 #include "iostream"
 #include "Rook.h"
 #include "Loc.h"
-class Piece;
 
 class Board
 {
