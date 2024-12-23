@@ -1,9 +1,9 @@
 #pragma once
 #include "Piece.h"
-class Rook : public Piece
+class Queen : public Piece
 {
 public:
-	Rook(std::string name, std::string location); // initiate Piece
+	Queen(std::string name, std::string location); // initiate Piece
 	bool validMove(std::string dst, Board board) override;
 };
 

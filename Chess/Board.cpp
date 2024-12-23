@@ -7,3 +7,12 @@ Board::Board()
 		this-> board[i] = new Piece[cols];
 	}
 }
+
+const Piece& Board::getPiece(std::string location)
+{
+	// TODO: insert return statement here
+}
+
+void Board::organizeBoard()
+{
+}
