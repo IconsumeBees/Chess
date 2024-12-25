@@ -2,25 +2,21 @@
 
 Loc strToLoc(const std::string str)
 {
-    Loc location;
-    location.col = (tolower(str[0]) - 'a') + 1;
-    location.row = str[1] - '0';
-    return location;
+    return Loc{ 7 - (str[1] - '1'), str[0] - 'a' };
 }
 
 std::string locToStr(const Loc& loc)
 {
-    Loc loc;
-    char letter = 'a' + (loc.col - 1);
-    char number = '0' + loc.row;
-    return std::string(1, letter) + number;
+    char col = loc.col + 'a';
+    return "" + col + loc.row;
 }
 
-bool isValidIndex(const Loc& loc)
+bool Loc::operator==(const Loc& other) const
 {
-    if (loc.row > 7 || loc.row < 0 && loc.col > 7 || loc.col < 0)
-    {
-        return true;
-    }
-    return false;
+    return this->row == other.row && this->col == other.col;
+}
+
+bool Loc::isValidIndex() const
+{
+    return 0 <= this->row && this->row <= 7 && 0 <= this->col && this->col <= 7;
 }

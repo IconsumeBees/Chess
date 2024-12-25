@@ -2,12 +2,14 @@
 
 #include "iostream"
 
-typedef struct
+class Loc
 {
+public:
     int row;
     int col;
-} Loc;
+    bool operator==(const Loc& other) const;
+    bool isValidIndex() const;
+};
 
 Loc strToLoc(const std::string str);
 std::string locToStr(const Loc& loc);
-bool isValidIndex(const Loc& loc);
