@@ -3,7 +3,9 @@
 class Pawn : public Piece
 {
 public:
-	Pawn(std::string name, std::string location); // initiate Piece
-	bool validMove(std::string dst, Board board) override;
+	Pawn(const char piece, const Loc& loc);
+	virtual bool validMove(Piece* arr[8][8], const Loc& dst) override;
+private:
+	bool isFirst;
 };
 

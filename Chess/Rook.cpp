@@ -4,7 +4,7 @@ Rook::Rook(const char piece, const Loc& loc) : Piece(piece, loc)
 {
 }
 
-bool Rook::validMove(Piece* arr[8][8], const Loc& dst) const
+bool Rook::validMove(Piece* arr[8][8], const Loc& dst)
 {
 	Loc src = this->_loc;
 	if (src.row != dst.row && src.col != dst.col) { return false; }
