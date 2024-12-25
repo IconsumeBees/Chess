@@ -15,3 +15,12 @@ std::string locToStr(const Loc& loc)
     char number = '0' + loc.row;
     return std::string(1, letter) + number;
 }
+
+bool isValidIndex(const Loc& loc)
+{
+    if (loc.row > 7 || loc.row < 0 && loc.col > 7 || loc.col < 0)
+    {
+        return true;
+    }
+    return false;
+}

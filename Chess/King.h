@@ -4,8 +4,5 @@ class King : public Piece
 {
 public:
 	King(const char piece, const Loc& loc);
-	virtual bool validMove(const Board& board, const std::string& dst) const override;
-private:
-	bool isChecked(Board board);
-	bool isMated(Board board);
+	virtual bool validMove(Piece* arr[8][8], const Loc& dst) const override;
 };

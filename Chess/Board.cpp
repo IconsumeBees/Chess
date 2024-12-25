@@ -1,4 +1,5 @@
 
+
 #include "Board.h"
 
 Board::Board(const std::string& piecesStr)
@@ -26,9 +27,15 @@ Board::~Board()
 	}
 }
 
-int Board::tryMove(const std::string& moveStr)
+int Board::tryMove(const Loc& src, const Loc& dst)
 {
-	return 1;
+	if (this->_board[src.row][src.col] == nullptr) { return 2; } // make sure src is not empty
+	if (std::isupper(this->_board[src.row][src.col]->getChar()) == this->_blackMoves) { return 2; } // make sure the right color is being played
+	if (!this->_board[src.row][src.col]->validMove(this->_board, dst)) { return 6; } // make sure path is valid and not blocked
+
+	this->_board[dst.row][dst.col] = this->_board[src.row][src.col];
+	this->_board[src.row][src.col] = nullptr;
+	return 0;
 }
 
 std::string Board::getBoardStr() const

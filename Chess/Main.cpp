@@ -1,6 +1,5 @@
 #include "Board.h"
 
-
 static void printBoard(const std::string& boardStr)
 {
 	unsigned int i = 0;
@@ -20,21 +19,14 @@ static int checkInput(std::string src, std::string dst, Piece* board[8][8], bool
 	Loc location, destination;
 	location = strToLoc(src);
 	destination = strToLoc(src);
-	if (location.row > 7 || location.row < 0 && location.col > 7 || location.col < 0)
-	{
-		return 6;
-	}
-
-	if (destination.row > 7 || destination.row < 0 && destination.col > 7 || destination.col < 0)
-	{
-		return 6;
-	}
-
 	if (location.row == destination.row && location.col == destination.col)
 	{
 		return 7;
 	}
-	
+	if (isValidIndex(location) && isValidIndex(destination))
+	{
+		return 6;
+	}
 	if (board[location.row][location.col])
 	{
 		if (blackMoves)
@@ -93,6 +85,8 @@ int main()
 	{
 		std::cout << "move: ";
 		std::cin >> move;
+
+		Loc src = strToLoc(move.substr(0, )
 
 		printBoard(board.getBoardStr());
 	}

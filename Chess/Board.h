@@ -10,7 +10,7 @@ class Board
 public:
 	Board(const std::string& piecesStr);
 	~Board();
-	int tryMove(const std::string& moveStr);
+	int tryMove(const Loc& src, const Loc& dst);
 	std::string getBoardStr() const;
 private:
 	Piece* _newPiece(const char piece, const Loc& loc);

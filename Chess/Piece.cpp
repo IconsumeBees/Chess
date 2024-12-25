@@ -10,3 +10,8 @@ char Piece::getChar() const
 {
 	return this->_piece;
 }
+
+void Piece::setLoc(const Loc& loc)
+{
+	this->_loc = loc;
+}

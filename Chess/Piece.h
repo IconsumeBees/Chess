@@ -9,9 +9,10 @@ class Piece
 public:
 	Piece(const char piece, const Loc& loc);
 	char getChar() const;
-	virtual bool validMove(const Piece* arr[8][8], const std::string& dst) const = 0;
+	void setLoc(const Loc& loc);
+	virtual bool validMove(Piece* arr[8][8], const Loc& dst) const = 0;
 
-private:
+protected:
 	char _piece;
 	Loc _loc;
 };
