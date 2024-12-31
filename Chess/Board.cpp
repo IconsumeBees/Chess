@@ -74,6 +74,8 @@ int Board::tryMove(const Loc& src, const Loc& dst)
 
 	if (dstPtr != nullptr) { delete dstPtr; }
 	this->_blackMoves = !this->_blackMoves;
+
+	this->_promote();
 	return 0;
 }
 
@@ -196,4 +198,27 @@ bool Board::_isThreatend(const Piece* king)
 		}
 	}
 	return false;
+}
+
+/*
+promote any eligible pawns
+*/
+void Board::_promote()
+{
+	int row = 0;
+	while (row == 0 || row == 7)
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			if (this->_board[row][i] == nullptr) { continue; }
+			char piece = this->_board[row][i]->getChar();
+			if (piece == 'P' || piece == 'p')
+			{
+				Piece* tempPtr = this->_board[row][i];
+				this->_board[row][i] = new Queen(std::isupper(piece) ? 'Q' : 'q', tempPtr->getLoc());
+				delete tempPtr;
+			}
+		}
+		row += 7;
+	}
 }

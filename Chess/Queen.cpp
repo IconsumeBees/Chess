@@ -17,21 +17,18 @@ dst -> destination of the queen
 bool Queen::validMove(Piece* arr[8][8], const Loc& dst) const
 {
 	Loc src = this->_loc;
-	bool ret = false;
 	Piece* tempPiece = nullptr;
+	bool ans = false;
 	if (src.row == dst.row || src.col == dst.col)
 	{
 		tempPiece = new Rook('x', src);
-		ret = tempPiece->validMove(arr, dst);
-		delete(tempPiece);
-		return ret;
+		ans = tempPiece->validMove(arr, dst);
 	}
 	if (abs(src.row - dst.row) == abs(src.col - dst.col))
 	{
 		tempPiece = new Bishop('x', src);
-		ret = tempPiece->validMove(arr, dst);
-		delete(tempPiece);
-		return ret;
+		ans = tempPiece->validMove(arr, dst);
 	}
-	return false;
+	delete tempPiece;
+	return ans;
 }

@@ -19,6 +19,7 @@ public:
 	std::string getBoardStr() const;
 	int checkInput(const Loc& src, const Loc& dst);
 private:
+	void _promote();
 	Piece* _K_w = nullptr;
 	Piece* _k_b = nullptr;
 	Piece* _newPiece(const char piece, const Loc& loc);
