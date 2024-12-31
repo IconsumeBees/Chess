@@ -1,11 +1,19 @@
 #include "Pawn.h"
 
 
-
+/*
+c'tor for pawn inherits from piece
+*/
 Pawn::Pawn(const char piece, const Loc& loc) : Piece(piece, loc)
 {
 }
 
+/*
+checks valid movement for pawn
+input:
+arr -> array of the board
+dst -> destination of the pawn
+*/
 bool Pawn::validMove(Piece* arr[8][8], const Loc& dst) const
 {
     Loc src = this->_loc;

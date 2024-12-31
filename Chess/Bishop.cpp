@@ -1,10 +1,18 @@
 #include "Bishop.h"
-
+/*
+c'tor for bishop inherits from piece
+*/
 Bishop::Bishop(const char piece, const Loc& loc) : Piece(piece, loc)
 {
 
 }
 
+/*
+checks valid movement for bishop
+input: 
+arr -> array of the board
+dst -> destination of the bishop
+*/
 bool Bishop::validMove(Piece* arr[8][8], const Loc& dst) const
 {
 	Loc src = this->_loc;

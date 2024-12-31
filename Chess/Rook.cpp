@@ -1,9 +1,18 @@
 #include "Rook.h"
 
+/*
+c'tor for rook inherits from piece
+*/
 Rook::Rook(const char piece, const Loc& loc) : Piece(piece, loc)
 {
 }
 
+/*
+checks valid movement for rook
+input:
+arr -> array of the board
+dst -> destination of the rook
+*/
 bool Rook::validMove(Piece* arr[8][8], const Loc& dst) const
 {
 	Loc src = this->_loc;

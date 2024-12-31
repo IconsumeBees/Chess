@@ -1,6 +1,11 @@
 
 #include "Board.h"
-
+/*
+c'tor for board
+input :
+piecesStr -> the board represented by a string 
+code -> a boolean representing if black starts or not 
+*/
 Board::Board(const std::string& piecesStr, const char code)
 {
 	if (code == '0')
@@ -20,8 +25,12 @@ Board::Board(const std::string& piecesStr, const char code)
 			i++;
 		}
 	}
+	// the board is now represented as a 2d array of piece pointers (or nullptrs)
 }
 
+/*
+d'tor for board
+*/
 Board::~Board()
 {
 	for (int row = 0; row < 8; row++)
@@ -33,6 +42,14 @@ Board::~Board()
 	}
 }
 
+/*
+	checks if the piece in the current location can move the way the user wants it to, returns status codes accordingly.
+input:
+	src -> source location (rows and cols) 
+	dst -> destination location (rows and cols)
+output:
+	int representing a status code according to the movement requested by the user
+*/
 int Board::tryMove(const Loc& src, const Loc& dst)
 {
 	if (int ans = this->checkInput(src, dst)) { return ans; }
@@ -60,6 +77,11 @@ int Board::tryMove(const Loc& src, const Loc& dst)
 	return 0;
 }
 
+/*
+converts the board from a 2d array of piece pointers into a string.
+output:
+the board string (wow).
+*/
 std::string Board::getBoardStr() const
 {
 	std::string boardStr = "";
@@ -73,7 +95,14 @@ std::string Board::getBoardStr() const
 	}
 	return boardStr;
 }
-
+/*
+checks if the user entered a valid input to move the piece into
+input:
+	src -> source location (rows and cols)
+	dst -> destination location (rows and cols)
+output:
+	int representing a status code according to the movement requested by the user
+*/
 int Board::checkInput(const Loc& src, const Loc& dst)
 {
 	if (src == dst) { return 7; } // make sure src and dst are not the same
@@ -87,7 +116,14 @@ int Board::checkInput(const Loc& src, const Loc& dst)
 
 	return 0;
 }
-
+/*
+creates a new piece pointer based on parameters
+input:
+	piece -> name of piece
+	loc -> location of the piece to create
+output:
+	pointer to a new piece.
+*/
 Piece* Board::_newPiece(const char piece, const Loc& loc)
 {
 	switch (piece)
@@ -132,7 +168,13 @@ Piece* Board::_newPiece(const char piece, const Loc& loc)
 		return nullptr;
 	}
 }
-
+/*
+checks if the king is threatened (the check part of checkmate)
+input:
+	king -> the king to check for threats
+output:
+	boolean based on functionality.
+*/
 bool Board::_isThreatend(const Piece* king)
 {
 	Loc square = king->getLoc();
