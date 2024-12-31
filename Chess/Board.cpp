@@ -52,6 +52,11 @@ output:
 */
 int Board::tryMove(const Loc& src, const Loc& dst)
 {
+	Piece* kingPtr = nullptr;
+	if (this->_blackMoves) { kingPtr = this->_k_b; }
+	else { kingPtr = this->_K_w; }
+	if (this->_isMated(kingPtr)) { return 8; }
+
 	if (int ans = this->checkInput(src, dst)) { return ans; }
 	if (!this->_board[src.row][src.col]->validMove(this->_board, dst)) { return 6; } // make sure path is valid and not blocked
 
@@ -59,10 +64,6 @@ int Board::tryMove(const Loc& src, const Loc& dst)
 	this->_board[dst.row][dst.col] = this->_board[src.row][src.col];
 	this->_board[dst.row][dst.col]->setLoc(dst);
 	this->_board[src.row][src.col] = nullptr;
-
-	Piece* kingPtr = nullptr;
-	if (this->_blackMoves) { kingPtr = this->_k_b; }
-	else { kingPtr = this->_K_w; }
 
 	if (this->_isThreatend(kingPtr))
 	{
@@ -198,6 +199,20 @@ bool Board::_isThreatend(const Piece* king)
 		}
 	}
 	return false;
+}
+
+bool Board::_isMated(const Piece* king)
+{
+	Loc loc = king->getLoc();
+	if (!this->_isThreatend(king)) { return false; }
+	for (int i = loc.row - 1; i <= loc.row + 1; i++)
+	{
+		for (int j = loc.col - 1; j <= loc.col + 1; j++)
+		{
+			if (tryMove(loc, Loc(i, j)) == 0) { return false; }
+		}
+	}
+	return true;
 }
 
 /*

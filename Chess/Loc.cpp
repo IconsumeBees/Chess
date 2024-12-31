@@ -21,6 +21,16 @@ std::string locToStr(const Loc& loc)
     return std::string(1, col) + std::to_string(8 - loc.row);
 }
 
+Loc::Loc()
+{
+}
+
+Loc::Loc(const int row, const int col)
+{
+    this->row = row;
+    this->col = col;
+}
+
 /*
 function overloads the operator == to returns a boolean value if the two locations are the same
 input:

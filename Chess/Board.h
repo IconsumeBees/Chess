@@ -19,6 +19,7 @@ public:
 	std::string getBoardStr() const;
 	int checkInput(const Loc& src, const Loc& dst);
 private:
+	bool _isMated(const Piece* king);
 	void _promote();
 	Piece* _K_w = nullptr;
 	Piece* _k_b = nullptr;

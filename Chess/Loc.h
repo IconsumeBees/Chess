@@ -6,6 +6,8 @@
 class Loc
 {
 public:
+    Loc();
+    Loc(const int row, const int col);
     int row;
     int col;
     bool operator==(const Loc& other) const;
