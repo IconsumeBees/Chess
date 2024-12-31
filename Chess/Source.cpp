@@ -1,13 +1,14 @@
 /*
 This file servers as an example of how to use Pipe.h file.
-It is recommended to use the following code in your project, 
+It is recommended to use the following code in your project,
 in order to read and write information from and to the Backend
 */
 
 #include "Pipe.h"
 #include <iostream>
 #include <thread>
-
+#include <cstdio>
+#include "Board.h"
 using std::cout;
 using std::endl;
 using std::string;
@@ -17,10 +18,10 @@ void main()
 {
 	srand(time_t(NULL));
 
-	
+
 	Pipe p;
 	bool isConnect = p.connect();
-	
+
 	string ans;
 	while (!isConnect)
 	{
@@ -34,20 +35,20 @@ void main()
 			Sleep(5000);
 			isConnect = p.connect();
 		}
-		else 
+		else
 		{
 			p.close();
 			return;
 		}
 	}
-	
+
 
 	char msgToGraphics[1024];
 	// msgToGraphics should contain the board string accord the protocol
-	// YOUR CODE
 
-	strcpy_s(msgToGraphics, "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1"); // just example...
-	
+	strcpy_s(msgToGraphics, "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1"); 
+	Board board = Board("rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR", '1');
+	cout << board.getBoardStr() << endl;
 	p.sendMessageToGraphics(msgToGraphics);   // send the board string
 
 	// get message from graphics
@@ -57,19 +58,17 @@ void main()
 	{
 		// should handle the string the sent from graphics
 		// according the protocol. Ex: e2e4           (move e2 to e4)
-		
-		// YOUR CODE
-		strcpy_s(msgToGraphics, "YOUR CODE"); // msgToGraphics should contain the result of the operation
+		Loc src = strToLoc(msgFromGraphics.substr(0, 2));
+		Loc dst = strToLoc(msgFromGraphics.substr(2, 4));
+		char status[1024];
+		sprintf_s(status, "%d",board.tryMove(src, dst));
 
-		/******* JUST FOR EREZ DEBUGGING ******/
-		int r = rand() % 10; // just for debugging......
-		msgToGraphics[0] = (char)(1 + '0');
-		msgToGraphics[1] = 0;
-		/******* JUST FOR EREZ DEBUGGING ******/
+		cout << "\nerror code: " << status << endl;
 
+		strcpy_s(msgToGraphics, status); // msgToGraphics should contain the result of the operation
 
 		// return result to graphics		
-		p.sendMessageToGraphics(msgToGraphics);   
+		p.sendMessageToGraphics(msgToGraphics);
 
 		// get message from graphics
 		msgFromGraphics = p.getMessageFromGraphics();

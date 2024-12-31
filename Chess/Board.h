@@ -13,7 +13,7 @@
 class Board
 {
 public:
-	Board(const std::string& piecesStr);
+	Board(const std::string& piecesStr, const char code);
 	~Board();
 	int tryMove(const Loc& src, const Loc& dst);
 	std::string getBoardStr() const;

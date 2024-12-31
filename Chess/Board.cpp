@@ -1,9 +1,16 @@
 
 #include "Board.h"
 
-Board::Board(const std::string& piecesStr)
+Board::Board(const std::string& piecesStr, const char code)
 {
-	this->_blackMoves = true;
+	if (code == '0')
+	{
+		this->_blackMoves = false;
+	}
+	else
+	{
+		this->_blackMoves = true;
+	}
 	unsigned int i = 0;
 	for (int row = 0; row < 8; row++)
 	{
