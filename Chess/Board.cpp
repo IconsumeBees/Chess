@@ -31,9 +31,24 @@ int Board::tryMove(const Loc& src, const Loc& dst)
 	if (int ans = this->checkInput(src, dst)) { return ans; }
 	if (!this->_board[src.row][src.col]->validMove(this->_board, dst)) { return 6; } // make sure path is valid and not blocked
 
+	Piece* dstPtr = this->_board[dst.row][dst.col];
 	this->_board[dst.row][dst.col] = this->_board[src.row][src.col];
-	this->_board[src.row][src.col]->setLoc(dst);
+	this->_board[dst.row][dst.col]->setLoc(dst);
 	this->_board[src.row][src.col] = nullptr;
+
+	Piece* kingPtr = nullptr;
+	if (this->_blackMoves) { kingPtr = this->_k_b; }
+	else { kingPtr = this->_K_w; }
+
+	if (this->_isThreatend(kingPtr))
+	{
+		this->_board[src.row][src.col] = this->_board[dst.row][dst.col];
+		this->_board[src.row][src.col]->setLoc(src);
+		this->_board[dst.row][dst.col] = dstPtr;
+		return 4;
+	}
+
+	if (dstPtr != nullptr) { delete dstPtr; }
 	this->_blackMoves = !this->_blackMoves;
 	return 0;
 }
@@ -74,11 +89,62 @@ Piece* Board::_newPiece(const char piece, const Loc& loc)
 	case 'r':
 		return new Rook(piece, loc);
 		break;
-	case 'K':
-	case 'k':
-		return new King(piece, loc);
+	case 'N':
+	case 'n':
+		return new Knight(piece, loc);
 		break;
+	case 'B':
+	case 'b':
+		return new Bishop(piece, loc);
+		break;
+	case 'Q':
+	case 'q':
+		return new Queen(piece, loc);
+		break;
+	case 'P':
+	case 'p':
+		return new Pawn(piece, loc);
+		break;
+	case 'K':
+		if (this->_K_w == nullptr)
+		{
+			this->_K_w = new King(piece, loc);
+			return this->_K_w;
+			break;
+		}
+		else { std::cout << "there can't be multiple white kings"; }
+	case 'k':
+		if (this->_k_b == nullptr)
+		{
+			this->_k_b = new King(piece, loc);
+			return this->_k_b;
+			break;
+		}
+		else { std::cout << "there can't be multiple black kings"; }
 	default:
 		return nullptr;
 	}
+}
+
+bool Board::_isThreatend(const Piece* king)
+{
+	Loc square = king->getLoc();
+	for (int row = 0; row < 8; row++)
+	{
+		for (int col = 0; col < 8; col++)
+		{
+			if (this->_board[row][col] != nullptr && this->_board[row][col] != king)
+			{
+				if (std::isupper(this->_board[row][col]->getChar()) != std::isupper(king->getChar()))
+				{
+					if (this->_board[row][col]->validMove(this->_board, square))
+					{
+						std::cout << "threat: " << locToStr(this->_board[row][col]->getLoc()) << "\n";
+						return true;
+					}
+				}
+			}
+		}
+	}
+	return false;
 }

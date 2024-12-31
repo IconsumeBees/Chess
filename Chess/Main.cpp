@@ -1,4 +1,5 @@
 #include "Board.h"
+#include "string"
 #include <windows.h>
 
 static void coloredOut(const std::string& str, const int color)
@@ -14,7 +15,7 @@ static void printBoard(const std::string& boardStr)
 	unsigned int i = 0;
 	for (int row = 0; row < 8; row++)
 	{
-		coloredOut(std::to_string(8 - row) + " ", 1);
+		coloredOut(std::to_string(8 - row) + " ", 2);
 		for (int col = 0; col < 8; col++)
 		{
 			std::cout << boardStr[i] << " ";
@@ -22,12 +23,12 @@ static void printBoard(const std::string& boardStr)
 		}
 		std::cout << "\n";
 	}
-	coloredOut("  a b c d e f g h\n", 1);
+	coloredOut("  a b c d e f g h\n", 2);
 }
 
 int main()
 {
-	/*
+
 	std::string piecesStr =
 		"RNBQKBNR"
 		"PPPPPPPP"
@@ -37,7 +38,7 @@ int main()
 		"########"
 		"pppppppp"
 		"rnbqkbnr";
-	*/
+	/*
 	std::string piecesStr =
 		"R######R"
 		"########"
@@ -47,7 +48,7 @@ int main()
 		"########"
 		"########"
 		"r######r";
-
+	*/
 	Board board(piecesStr);
 
 	std::string move = "";

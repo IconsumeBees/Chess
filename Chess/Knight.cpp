@@ -5,9 +5,9 @@ Knight::Knight(const char piece, const Loc& loc) : Piece(piece, loc)
 
 }
 
-bool Knight::validMove(Piece* arr[8][8], const Loc& dst)
+bool Knight::validMove(Piece* arr[8][8], const Loc& dst) const
 {
 	Loc src = this->_loc;
-	if (dst.row - src.row + dst.col - src.col != 3 && dst.row - src.row == 0 || dst.col - src.col == 0) { return false; }
+	if (abs(dst.row - src.row) + abs(dst.col - src.col) != 3 || dst.row == src.row || dst.col == src.col) { return false; }
 	return true;
 }

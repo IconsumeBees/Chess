@@ -8,7 +8,7 @@ Loc strToLoc(const std::string str)
 std::string locToStr(const Loc& loc)
 {
     char col = loc.col + 'a';
-    return "" + col + loc.row;
+    return std::string(1, col) + std::to_string(8 - loc.row);
 }
 
 bool Loc::operator==(const Loc& other) const

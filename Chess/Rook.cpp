@@ -4,10 +4,9 @@ Rook::Rook(const char piece, const Loc& loc) : Piece(piece, loc)
 {
 }
 
-bool Rook::validMove(Piece* arr[8][8], const Loc& dst)
+bool Rook::validMove(Piece* arr[8][8], const Loc& dst) const
 {
 	Loc src = this->_loc;
-	if (src.row != dst.row && src.col != dst.col) { return false; }
 	if (src.row == dst.row)
 	{
 		int start = src.col, end = dst.col;
@@ -17,7 +16,7 @@ bool Rook::validMove(Piece* arr[8][8], const Loc& dst)
 			if (arr[src.row][i] != nullptr) { return false; }
 		}
 	}
-	if (src.col == dst.col)
+	else if (src.col == dst.col)
 	{
 		int start = src.row, end = dst.row;
 		if (dst.row < src.row) { start = dst.row; end = src.row; }
@@ -26,5 +25,6 @@ bool Rook::validMove(Piece* arr[8][8], const Loc& dst)
 			if (arr[i][src.col] != nullptr) { return false; }
 		}
 	}
+	else { return false; }
 	return true;
 }
